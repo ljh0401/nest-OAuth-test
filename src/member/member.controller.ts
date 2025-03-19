@@ -1,34 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MemberService } from './member.service';
-import { CreateMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Patch, 
+  Body, 
+  Param 
+} from "@nestjs/common";
+import { MemberService } from "./member.service";
+import { CreateMemberDto, UpdateMemberDto } from "./dto";
+import { Member } from "./entities";
 
-@Controller('member')
+@Controller("member")
 export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
+  // 회원 조회 (이메일 기준)
+  @Get(":email")
+  async getMember(@Param("email") email: string): Promise<Member | null> {
+    return this.memberService.findByEmail(email);
+  }
+
+  // 회원 가입
   @Post()
-  create(@Body() createMemberDto: CreateMemberDto) {
+  async createMember(@Body() createMemberDto: CreateMemberDto): Promise<Member> {
     return this.memberService.create(createMemberDto);
   }
 
-  @Get()
-  findAll() {
-    return this.memberService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.memberService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-    return this.memberService.update(+id, updateMemberDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.memberService.remove(+id);
+  // 회원 정보 업데이트
+  @Patch(":email")
+  async updateMember(
+    @Param("email") email: string, 
+    @Body() updateMemberDto: UpdateMemberDto
+  ): Promise<Member> {
+    return this.memberService.update(email, updateMemberDto);
   }
 }

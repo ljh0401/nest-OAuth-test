@@ -1,9 +1,21 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { 
+  Entity, 
+  Column, 
+  PrimaryGeneratedColumn, 
+  CreateDateColumn, 
+  UpdateDateColumn, 
+} from "typeorm";
 
+// provider enum 기준
 export enum ProviderRole {
-  FORM = "form",
   GOOGLE = "google",
   KAKAO = "kakao",
+}
+
+// role enum 기준
+export enum RoleRole {
+  PARANT = "parant",
+  CHILD = "child",
 }
 
 @Entity()
@@ -20,11 +32,19 @@ export class Member {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: true })
-  password?: string;
-
   @Column({ type: "enum",
     enum: ProviderRole,
    })
   provider: ProviderRole;
+
+  @Column({ type: "enum",
+    enum: RoleRole, 
+  })
+  role: RoleRole;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
