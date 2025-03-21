@@ -1,11 +1,4 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Patch, 
-  Body, 
-  Param 
-} from "@nestjs/common";
+import { Controller, Get, Post, Patch, Body, Param } from "@nestjs/common";
 import { MemberService } from "./member.service";
 import { CreateMemberDto, UpdateMemberDto } from "./dto";
 import { Member } from "./entities";
@@ -29,8 +22,8 @@ export class MemberController {
   // 회원 정보 업데이트
   @Patch(":email")
   async updateMember(
-    @Param("email") email: string, 
-    @Body() updateMemberDto: UpdateMemberDto
+    @Param("email") email: string,
+    @Body() updateMemberDto: UpdateMemberDto,
   ): Promise<Member> {
     return this.memberService.update(email, updateMemberDto);
   }

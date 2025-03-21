@@ -1,9 +1,9 @@
-import { 
-  Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  CreateDateColumn, 
-  UpdateDateColumn, 
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 // provider enum 기준
@@ -32,14 +32,10 @@ export class Member {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ type: "enum",
-    enum: ProviderRole,
-   })
+  @Column({ type: "enum", enum: ProviderRole })
   provider: ProviderRole;
 
-  @Column({ type: "enum",
-    enum: RoleRole, 
-  })
+  @Column({ type: "enum", enum: RoleRole })
   role: RoleRole;
 
   @CreateDateColumn()

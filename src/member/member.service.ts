@@ -8,7 +8,7 @@ import { CreateMemberDto, UpdateMemberDto } from "./dto";
 export class MemberService {
   constructor(
     @InjectRepository(Member)
-    private memberRepository: Repository<Member>
+    private memberRepository: Repository<Member>,
   ) {}
 
   // 회원 조회 (이메일 기준)
@@ -28,7 +28,7 @@ export class MemberService {
     if (!member) {
       throw new Error("해당 이메일의 사용자가 존재하지 않습니다.");
     }
-    
+
     Object.assign(member, updateMemberDto);
     return this.memberRepository.save(member);
   }

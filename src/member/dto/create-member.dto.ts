@@ -20,4 +20,3 @@ export class CreateMemberDto {
   @IsEnum(RoleRole)
   role: RoleRole;
 }
-  
